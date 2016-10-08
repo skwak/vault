@@ -1,22 +1,20 @@
 module.exports = function(grunt) {
   grunt.initConfig({
-    uglify: {
-      build: {
-        src: 'assets/js/main.js',
-        dest: 'assets/js/main.min.js',
+
+    browserify: {
+      dist: {
+        files: {
+          'assets/js/main.bundle.js': ['assets/js/main.js']
+        }
       }
     },
 
-    // sass: {
-    //   options: {
-    //     sourceMap: true
-    //   },
-    //   dist: {
-    //     files: {
-    //       'assets/stylesheets/main.css': 'assets/scss/main.scss'
-    //     }
-    //   }
-    // },
+    uglify: {
+      build: {
+        src: 'assets/js/main.bundle.js',
+        dest: 'assets/js/main.min.js',
+      }
+    },
 
     sass: {
       dist: {
@@ -29,18 +27,6 @@ module.exports = function(grunt) {
       }
     },
 
-
-    // cssmin: {
-    //   target: {
-    //     files: [{
-    //       expand: true,
-    //       cwd: 'assets/stylesheets/',
-    //       src: ['main.css'],
-    //       dest: 'assets/stylesheets/public/main'
-    //       ext: '.min.css'
-    //     }]
-    //   }
-    // },
     cssmin: {
       target: {
         files: {
@@ -59,8 +45,8 @@ module.exports = function(grunt) {
         },
       },
       js: {
-        files: ['assets/js/*.js'],
-        tasks: ['uglify'],
+        files: ['assets/js/main.js'],
+        tasks: ['browserify', 'uglify'],
         options: {
           interrupt: true,
         }
@@ -69,8 +55,9 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-sass');
-  grunt.registerTask('default', ['watch', 'uglify', 'sass', 'cssmin']);
+  grunt.registerTask('default', ['watch', 'browserify', 'uglify', 'sass', 'cssmin']);
 };
