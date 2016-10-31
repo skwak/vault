@@ -1,1 +1,0 @@
-var paper = require('paper');
