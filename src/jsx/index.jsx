@@ -3,8 +3,8 @@ import {render} from 'react-dom';
 
 class App extends React.Component {
   render () {
-    return <p> Hello React!</p>;
+    return <p> A tiny whistle surrounding us that means absolutely nothing!</p>;
   }
 }
 
-render(<App/>, document.getElementById('app'));
+render(<App/>, document.getElementById('poem1'));
